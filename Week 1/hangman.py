@@ -21,14 +21,16 @@ Word: j a _ a
 Guess a letter: v                                                                                                                                                
 You guessed the word java !
 '''
+# Changes the colour of text to red and then back to the default colour
 def printError(error):
     print(f'{FAIL}{error}{ENDC}')
 
-wordToGuess = 'java'
-lettersToGuess = list(wordToGuess)
 FAIL = '\033[91m'
 ENDC = '\033[0m'
 OKGREEN = '\033[92m'
+
+wordToGuess = 'java'
+lettersToGuess = list(wordToGuess)
 wrongCounter = 0
 guessedLetters = ['_']*len(lettersToGuess)
 usedLetters = []
@@ -65,5 +67,3 @@ while wrongCounter < 6 and guessedLetters != lettersToGuess:
         print(f'{OKGREEN}You guessed the word {wordToGuess}!{ENDC}')
     elif wrongCounter == 6:
         printError('Game over.')
-
-# Create repository on Git and give him the link
