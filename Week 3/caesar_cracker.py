@@ -5,7 +5,8 @@ if you don't know the key. There are only 26
 possible keys for the Caesar cipher, so a computer can easily try all possible decryptions and display the results to the user. In cryptography, we call 
 this technique a brute-force attack.
 '''
-string = 'QIIX QI FC XLI VSWI FYWLIW XSRMKLX.'
+string = input('Enter the message to decrypt.\n> ')
+
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 def decrypt(string, key):

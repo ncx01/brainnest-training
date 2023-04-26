@@ -29,9 +29,8 @@ Enter the message to decrypt.
 MEET ME BY THE ROSE BUSHES TONIGHT.
 '''
 
-temp = input('Do you want to (e)ncrypt or (d)ecrypt?\n')
-key = input('Please enter the key (0 to 25) to use.')
-string = input('Enter the message to encrypt.\n')
+temp = input('Do you want to (e)ncrypt or (d)ecrypt?\n> ')
+key = input('Please enter the key (0 to 25) to use.\n> ')
 
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
@@ -65,7 +64,9 @@ def decrypt(string, key):
             result += letter
     return result.upper()
 
-if temp == 'e':
-    print(encrypt(string, key))
-elif temp == 'd':
-    print(decrypt(string, key))
+if temp.lower() == 'e':
+    string = input('Enter the message to encrypt.\n> ')
+    print(encrypt(string, int(key)))
+elif temp.lower() == 'd':
+    string = input('Enter the message to decrypt.\n> ')
+    print(decrypt(string, int(key)))
