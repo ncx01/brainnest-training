@@ -64,7 +64,7 @@ def send_email(subject, body, filename, sender, recipients, password):
 
 subject = "Multipart Test"
 
-body = "This is an email with attachment sent from Python"
+body = "This is an email with an attachment sent from Python"
 
 filename = "document.pdf"
 
