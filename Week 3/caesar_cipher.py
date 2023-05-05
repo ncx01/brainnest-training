@@ -34,34 +34,48 @@ key = input('Please enter the key (0 to 25) to use.\n> ')
 
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
+# Shifts letters in string forwards by amount key
 def encrypt(string, key):
     letterList = list(string)
     result = ''
+
     for letter in letterList:
         try:
             index = alphabet.index(letter.lower())
+
+            # In the case when the index of the encrypted letter exceeds the length of the array
             if index + key > len(alphabet):
                 index = (index + key) % len(alphabet)
                 result += alphabet[index]
             else:
                 result += alphabet[index + key]
+        
+        # If letter is not in alphabet, it is not encrypted
         except ValueError:
             result += letter
+
     return result.upper()
 
+# Shifts letters in string backwards by amount key
 def decrypt(string, key):
     letterList = list(string)
     result = ''
+
     for letter in letterList:
         try:
             index = alphabet.index(letter.lower())
+
+            # In the case when the index of the decrypted letter is less than 0
             if index - key < 0:
                 index = (index - key) % len(alphabet)
                 result += alphabet[index]
             else:
                 result += alphabet[index - key]
+
+        # If letter is not in alphabet, it is not decrypted
         except ValueError:
             result += letter
+
     return result.upper()
 
 if temp.lower() == 'e':

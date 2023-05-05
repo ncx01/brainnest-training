@@ -21,6 +21,7 @@ Word: j a _ a
 Guess a letter: v                                                                                                                                                
 You guessed the word java !
 '''
+
 # Changes the colour of text to red and then back to the default colour
 def printError(error):
     print(f'{FAIL}{error}{ENDC}')
@@ -43,11 +44,13 @@ while wrongCounter < 6 and guessedLetters != lettersToGuess:
     
     newLetter = input('Guess a letter: ')
     
+    # Check if input is longer than 1 digit
     if len(list(newLetter)) > 1:
         printError('Enter just one letter.')
         wrongCounter += 1
         continue
-
+    
+    # Check if input has already been guessed
     if newLetter in usedLetters:
         printError(f'Letter {newLetter} already used.')
         wrongCounter += 1
@@ -55,6 +58,7 @@ while wrongCounter < 6 and guessedLetters != lettersToGuess:
     
     usedLetters.append(newLetter)
 
+    # Reveal letter if guess is correct
     if newLetter in lettersToGuess:
         for i in range(len(lettersToGuess)):
             if newLetter == lettersToGuess[i]:
@@ -63,6 +67,8 @@ while wrongCounter < 6 and guessedLetters != lettersToGuess:
         wrongCounter += 1
         printError(f'{newLetter} is not a letter in the word.')
 
+    # Check if all letters in word have been guessed
+    # If the nummber of wrong guesses reaches 6, print 'Game over.'
     if guessedLetters == lettersToGuess:
         print(f'{OKGREEN}You guessed the word {wordToGuess}!{ENDC}')
     elif wrongCounter == 6:

@@ -19,10 +19,8 @@ import smtplib, ssl
 from email import encoders
 from email.mime.base import MIMEBase
 
-# MIMEText() objects will contain the HTML and plain-text versions of the message
 from email.mime.text import MIMEText
 
-# MIMEMultipart("alternative") instance combines these into a single message with two alternative rendering options
 from email.mime.multipart import MIMEMultipart
 
 import os
@@ -41,7 +39,7 @@ def send_email(subject, body, filePath, sender, recipient, password):
     # Add body to email
     msg.attach(MIMEText(body, "plain"))
 
-    # Open PDF file in binary mode
+    # Open file in binary mode
     with open(filePath, "rb") as attachment:
         # Add file as application/octet-stream
         # Email client can usually download this automatically as attachment
@@ -61,22 +59,25 @@ def send_email(subject, body, filePath, sender, recipient, password):
     # Add attachment to message and convert message to string
     msg.attach(part)
     
-
     # Create a secure SSL context
     context = ssl.create_default_context()
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as smtp_server:
         smtp_server.login(sender, password)
         smtp_server.sendmail(sender, recipient, msg.as_string())
 
+    # Write log
     writeLog(msg.as_string())
 
 def sendReports():
+    # Send files in separate emails
     for filename in os.listdir(reportDirectory):
         filePath = os.path.join(reportDirectory, filename)
-        print(filePath)
+
+        # for loop to iterate through the list of recipients and send the email and attachment
         for recipient in recipients:
             send_email(subject, body, filePath, sender, recipient, password)
 
+# Write log to log.txt file when called
 def writeLog(text):
     now = datetime.now()
     logPath = os.path.join(currentDirectory, 'logs', 'log.txt')
@@ -84,21 +85,23 @@ def writeLog(text):
     file.write(now.strftime("%d/%m/%Y %H:%M:%S\n") + text)
     file.close()
     
-
 subject = "Daily Report"
 body = "This is an email with an attachment sent from Python"
 
 # Your email address
-sender = "nicholascos@gmail.com" 
+sender = "sender@gmail.com" 
 
-# Your email password, should use input as it is not safe to store inside code, can import getpass module and
-# use getpass() for blind input
-password = 'reycaprarijynehk'#'01%Hawking04' # input("Type your password and press enter: ")
-recipients = ["antonio.cosentino@proton.me", "nicholas.cosentino@proton.me"]
+# Your email password
+password = input("Type your password and press enter: ")
+
+recipients = ["recipient1@gmail.com", "recipient2@gmail.com"]
+
+# Directory containing report files
 currentDirectory = os.path.dirname(os.path.realpath(__file__))
 reportDirectory = os.path.join(currentDirectory, 'Reports')
 
-schedule.every().day.at("22:59").do(sendReports)
+# Call sendReports every day at 13:00
+schedule.every().day.at("13:00").do(sendReports)
 
 while True:
     schedule.run_pending()
